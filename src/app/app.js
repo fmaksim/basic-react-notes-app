@@ -10,7 +10,7 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <Navbar />
-                <div className="wrapper">
+                <div className="container wrapper">
                     <Switch>
                         <Route path={ '/' } exact component={ Home }/>
                         <Route path={ '/about' } component={ About }/>

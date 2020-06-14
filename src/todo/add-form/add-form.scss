@@ -1,0 +1,16 @@
+.add-todo-form {
+  padding-bottom: 15px;
+  .form-group-todo-title {
+    padding-left: 0px;
+    input[type='text'] {
+      width: 100%;
+    }
+  }
+
+  .form-group-btn {
+    padding-right: 0px;
+    .add-todo-btn {
+      width: 100%;
+    }
+  }
+}
