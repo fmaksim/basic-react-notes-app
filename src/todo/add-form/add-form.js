@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import './add-form.scss';
+import { AlertContext } from "../../context/alert/alertContext";
 
 const AddForm = () => {
+    const [noteTitle, setNoteTitle] = useState('');
+    const alert = useContext(AlertContext);
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        alert.show('Note has been added!', 'success');
+        setNoteTitle('');
+    }
+
     return (
         <div>
-            <form className="form-inline add-todo-form" onSubmit={ () => {} }>
+            <form className="form-inline add-todo-form" onSubmit={ submitHandler }>
                 <div className="form-group form-group-todo-title col-md-10">
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Enter note title"/>
+                        placeholder="Enter note title"
+                        value={noteTitle}
+                        onChange={(e) => setNoteTitle(e.target.value)} />
                 </div>
                 <div className="form-group form-group-btn col-md-2">
                     <button
