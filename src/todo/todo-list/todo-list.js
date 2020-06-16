@@ -3,12 +3,12 @@ import TodoItem from "../todo-item";
 
 const TodoList = ({todos}) => {
     const list = todos ? todos.map((item) => {
-        return <TodoItem todo={ item }/>
+        return <TodoItem key={item.id} todo={ item }/>
     }) : null;
 
     return (
         <div>
-            <ul class="list-group">
+            <ul className="list-group">
                 { list }
             </ul>
         </div>
