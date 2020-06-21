@@ -1,16 +1,24 @@
 import React, {useContext, useState} from 'react';
 import './add-form.scss';
 import { AlertContext } from "../../context/alert/alertContext";
+import { FirebaseContext } from "../../context/firebase/firebaseContext";
+import { makeNote } from "../../factories/makeNote";
 
 const AddForm = () => {
     const [noteTitle, setNoteTitle] = useState('');
     const alert = useContext(AlertContext);
+    const firebase = useContext(FirebaseContext);
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        alert.show('Note has been added!', 'success');
-        setNoteTitle('');
+        const note = makeNote(noteTitle);
+        firebase.addNote(note).then((res) => {
+            alert.show('Note has been added!', 'success');
+            setNoteTitle('');
+        }).catch((e) => {
+            alert.show('Note was not been added!', 'danger');
+        });
     }
 
     return (
