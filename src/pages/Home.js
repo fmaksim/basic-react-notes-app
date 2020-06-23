@@ -1,18 +1,18 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import FilterPanel from "../todo/filter-panel";
 import SearchPanel from "../todo/search-panel";
 import StatusPanel from "../todo/status-panel";
 import TodoList from "../todo/todo-list";
 import AddForm from "../todo/add-form";
+import { FirebaseContext } from "../context/firebase/firebaseContext";
 
 export const Home = () => {
-    const todos = [
-        {id: 1, name: 'Note 1', important: false, done: true},
-        {id: 2, name: 'Note 1', important: true, done: false},
-        {id: 3, name: 'Note 1', important: true, done: true},
-        {id: 4, name: 'Note 1', important: false, done: true},
-        {id: 5, name: 'Note 1', important: true, done: false},
-    ];
+    const {notes, fetchNotes} = useContext(FirebaseContext);
+
+    useEffect(() => {
+        fetchNotes();
+    }, []);
+
     return (
         <Fragment>
             <StatusPanel todo={3} done={1} />
@@ -21,7 +21,7 @@ export const Home = () => {
                 <SearchPanel />
                 <FilterPanel />
             </div>
-            <TodoList todos={todos} />
+            <TodoList todos={notes} />
         </Fragment>
     );
 }
