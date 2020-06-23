@@ -7,13 +7,13 @@ import { makeNote } from "../../factories/makeNote";
 const AddForm = () => {
     const [noteTitle, setNoteTitle] = useState('');
     const alert = useContext(AlertContext);
-    const firebase = useContext(FirebaseContext);
+    const {addNote} = useContext(FirebaseContext);
 
     const submitHandler = (e) => {
         e.preventDefault();
 
         const note = makeNote(noteTitle);
-        firebase.addNote(note).then((res) => {
+        addNote(note).then((res) => {
             alert.show('Note has been added!', 'success');
             setNoteTitle('');
         }).catch((e) => {

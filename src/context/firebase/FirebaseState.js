@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { FirebaseContext } from "./firebaseContext";
 import { firebaseReducer } from "./firebaseReducer";
-import { ADD_NOTE, FETCH_NOTES, SHOW_LOADER } from "../types";
+import { ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SHOW_LOADER } from "../types";
 import FirebaseApiService from "../../services/firebaseApiService";
 
 export const FirebaseState = ({children}) => {
@@ -20,8 +20,8 @@ export const FirebaseState = ({children}) => {
     }
 
     const onFailCreatingNote = (e) => {
-        return new Promise((res, rej) => {
-            rej(e);
+        return new Promise((resolve, reject) => {
+            reject(e);
         });
     }
 
@@ -35,11 +35,11 @@ export const FirebaseState = ({children}) => {
             });
         }
 
-        return new Promise((res, rej) => {
+        return new Promise((resolve, reject) => {
             if (validResponse) {
-                res(note);
+                resolve(note);
             } else {
-                rej(new Error('Wrong server response!'));
+                reject(new Error('Wrong server response!'));
             }
         });
     };
@@ -70,9 +70,33 @@ export const FirebaseState = ({children}) => {
             .then(onFetchNotes);
     };
 
+    const onRemoveNote = (id) => {
+        dispatch({
+            type: REMOVE_NOTE,
+            payload: id
+        });
+
+        return new Promise((resolve) => {
+            resolve(true);
+        });
+    }
+
+    const onFailRemoveNote = (e) => {
+        return new Promise((resolve, reject) => {
+            reject(e);
+        })
+    }
+
+    const removeNote = (id) => {
+        return firebaseApiService
+            .removeNote(id)
+            .then((res) => {onRemoveNote(id)})
+            .catch(onFailRemoveNote);
+    }
+
     return (
         <FirebaseContext.Provider value={ {
-            addNote, fetchNotes,
+            addNote, fetchNotes, removeNote,
             notes: state.notes,
             loading: state.loading,
         } }>

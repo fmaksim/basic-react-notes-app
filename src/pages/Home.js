@@ -22,7 +22,7 @@ export const Home = () => {
                 <SearchPanel/>
                 <FilterPanel/>
             </div>
-            { loading ? <Loader/> : <TodoList todos={ notes }/> }
+            { loading ? <Loader/> : <TodoList todos={ notes } /> }
         </Fragment>
     );
 }
