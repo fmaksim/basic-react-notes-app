@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { FirebaseContext } from "./firebaseContext";
 import { firebaseReducer } from "./firebaseReducer";
-import { ADD_NOTE, FETCH_NOTES } from "../types";
+import { ADD_NOTE, FETCH_NOTES, SHOW_LOADER } from "../types";
 import FirebaseApiService from "../../services/firebaseApiService";
 
 export const FirebaseState = ({children}) => {
@@ -12,6 +12,12 @@ export const FirebaseState = ({children}) => {
     };
 
     const [state, dispatch] = useReducer(firebaseReducer, initialState);
+
+    const showLoader = () => {
+        dispatch({
+            type: SHOW_LOADER
+        });
+    }
 
     const onFailCreatingNote = (e) => {
         return new Promise((res, rej) => {
@@ -58,6 +64,7 @@ export const FirebaseState = ({children}) => {
     };
 
     const fetchNotes = () => {
+        showLoader();
         firebaseApiService
             .fetchNotes()
             .then(onFetchNotes);
@@ -66,7 +73,8 @@ export const FirebaseState = ({children}) => {
     return (
         <FirebaseContext.Provider value={ {
             addNote, fetchNotes,
-            notes: state.notes
+            notes: state.notes,
+            loading: state.loading,
         } }>
             { children }
         </FirebaseContext.Provider>

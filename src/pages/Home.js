@@ -5,9 +5,10 @@ import StatusPanel from "../todo/status-panel";
 import TodoList from "../todo/todo-list";
 import AddForm from "../todo/add-form";
 import { FirebaseContext } from "../context/firebase/firebaseContext";
+import Loader from "../common/Loader";
 
 export const Home = () => {
-    const {notes, fetchNotes} = useContext(FirebaseContext);
+    const {notes, fetchNotes, loading} = useContext(FirebaseContext);
 
     useEffect(() => {
         fetchNotes();
@@ -15,13 +16,13 @@ export const Home = () => {
 
     return (
         <Fragment>
-            <StatusPanel todo={3} done={1} />
-            <AddForm />
+            <StatusPanel todo={ 3 } done={ 1 }/>
+            <AddForm/>
             <div className="d-flex">
-                <SearchPanel />
-                <FilterPanel />
+                <SearchPanel/>
+                <FilterPanel/>
             </div>
-            <TodoList todos={notes} />
+            { loading ? <Loader/> : <TodoList todos={ notes }/> }
         </Fragment>
     );
 }
