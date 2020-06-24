@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './todo-item.scss';
 import { FirebaseContext } from "../../context/firebase/firebaseContext";
 import { AlertContext } from "../../context/alert/alertContext";
+import PropTypes from 'prop-types';
 
 const TodoItem = ({todo}) => {
     const {removeNote, toggleDone} = useContext(FirebaseContext);
@@ -32,6 +33,14 @@ const TodoItem = ({todo}) => {
             onClick={ onRemove }>Remove
         </button>
     </li>);
+}
+
+TodoItem.propTypes = {
+  note: PropTypes.object.isRequired
+};
+
+TodoItem.defaultProps = {
+    note: {}
 }
 
 export default TodoItem;

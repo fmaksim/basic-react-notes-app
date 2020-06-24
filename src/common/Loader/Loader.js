@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Loader = () => {
-    return <div className="spinner-border align-center" role="status">
+const Loader = () => (
+    <div className="spinner-border align-center" role="status">
         <span className="sr-only">Loading...</span>
-    </div>;
-}
+    </div>
+);
 
 export default Loader;
