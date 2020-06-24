@@ -45,10 +45,10 @@ export const FirebaseState = ({children}) => {
     };
 
     const onFetchNotes = (response) => {
-        const notes = Object.keys(response)
+        const notes = response !== null ? Object.keys(response)
             .map((id) => {
                 return {...response[id], id}
-            });
+            }) : [];
 
         dispatch({
             type: FETCH_NOTES,

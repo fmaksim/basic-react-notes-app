@@ -2,9 +2,9 @@ import React from 'react';
 import TodoItem from "../todo-item";
 
 const TodoList = ({todos}) => {
-    const list = todos ? todos.map((item) => {
+    const list = todos.length > 0 ? todos.map((item) => {
         return <TodoItem key={item.id} todo={ item }/>
-    }) : null;
+    }) : <p>Notes list is empty!</p>;
 
     return (
         <div>
