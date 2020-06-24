@@ -122,20 +122,6 @@ export const FirebaseState = ({children}) => {
         });
     }
 
-    const getFilteredNotes = () => {
-        let notes = state.notes;
-
-        if (state.search !== '') {
-            notes = searchNotes(notes);
-        }
-
-        if (state.filter !== FILTER_ALL) {
-            notes = filterNotes(notes);
-        }
-
-        return notes;
-    }
-
     const searchNotes = (notes) => {
         return notes.filter(note => note.note.indexOf(state.search) > -1);
     }
@@ -149,6 +135,20 @@ export const FirebaseState = ({children}) => {
             default:
                 return notes;
         }
+    }
+
+    const getFilteredNotes = () => {
+        let notes = state.notes;
+
+        if (state.search !== '') {
+            notes = searchNotes(notes);
+        }
+
+        if (state.filter !== FILTER_ALL) {
+            notes = filterNotes(notes);
+        }
+
+        return notes;
     }
 
     return (

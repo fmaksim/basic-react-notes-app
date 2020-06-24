@@ -12,6 +12,11 @@ const AddForm = () => {
     const submitHandler = (e) => {
         e.preventDefault();
 
+        if (noteTitle.trim() === '') {
+            alert.show('Please, enter note title!', 'danger');
+            return;
+        }
+
         const note = makeNote(noteTitle);
         addNote(note).then((res) => {
             alert.show('Note has been added!', 'success');
@@ -30,7 +35,7 @@ const AddForm = () => {
                         className="form-control"
                         placeholder="Enter note title"
                         value={noteTitle}
-                        onChange={(e) => setNoteTitle(e.target.value)} />
+                        onChange={(e) => setNoteTitle(e.target.value.trim())} />
                 </div>
                 <div className="form-group form-group-btn col-md-2">
                     <button
