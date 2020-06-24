@@ -1,5 +1,6 @@
 .todo-item {
-  .remove-item {
-    float: right;
-  }
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }

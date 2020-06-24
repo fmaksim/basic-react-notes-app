@@ -13,7 +13,7 @@ const TodoItem = ({todo}) => {
             .catch(error => alert.show(error.toString(), 'danger'));
     }
 
-    return (<li className="list-group-item todo-item">{ todo.note }
+    return (<li className="todo-item list-group-item">{ todo.note }
         <button
             type="button"
             className="btn btn-danger remove-item"
