@@ -14,9 +14,12 @@ export const Home = () => {
         fetchNotes();
     }, []);
 
+    const todoCount = notes.filter(note => !note.done).length;
+    const doneCount = notes.filter(note => note.done).length;
+
     return (
         <Fragment>
-            <StatusPanel todo={ 3 } done={ 1 }/>
+            <StatusPanel todo={ todoCount } done={ doneCount }/>
             <AddForm/>
             <div className="d-flex">
                 <SearchPanel/>
