@@ -1,17 +1,25 @@
 import React from 'react';
 import TodoItem from "../todo-item";
 import PropTypes from 'prop-types';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import './index.scss';
 
 const TodoList = ({todos}) => {
     const list = todos.length > 0 ? todos.map((item) => {
-        return <TodoItem key={item.id} todo={ item }/>
+        return <CSSTransition
+            key={ item.id }
+            timeout={ 800 }
+            classNames="note"
+        >
+            <TodoItem todo={ item }/>
+        </CSSTransition>
     }) : <p>Notes list is empty!</p>;
 
     return (
         <div>
-            <ul className="list-group">
+            <TransitionGroup component="ul" className="list-group">
                 { list }
-            </ul>
+            </TransitionGroup>
         </div>
     );
 };
@@ -21,7 +29,7 @@ TodoList.propTypes = {
 };
 
 TodoList.defaultProps = {
-  notes: []
+    notes: []
 };
 
 export default TodoList;

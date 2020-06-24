@@ -123,7 +123,11 @@ export const FirebaseState = ({children}) => {
     }
 
     const searchNotes = (notes) => {
-        return notes.filter(note => note.note.indexOf(state.search) > -1);
+        return notes.filter(
+            note => note.note
+                .toLowerCase()
+                .indexOf(state.search.toLowerCase()) > -1
+        );
     }
 
     const filterNotes = (notes) => {
