@@ -17,6 +17,13 @@ export default class FirebaseApiService {
         return await res.data;
     };
 
+    updateNote = async (note) => {
+        const res = await axios.put(`${ this.host }/notes/${note.id}.json`, note).catch((e) => {
+            throw new Error(`Couldn't modify note!`);
+        });
+        return await res.data;
+    };
+
     removeNote = async (id) => {
         const res = await axios.delete(`${ this.host }/notes/${ id }.json`).catch((e) => {
             throw new Error(`Couldn't delete note!`);

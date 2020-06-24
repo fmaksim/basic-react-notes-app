@@ -3,4 +3,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  &__name {
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .done {
+    text-decoration: line-through;
+  }
 }
