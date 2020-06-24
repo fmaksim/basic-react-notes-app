@@ -6,3 +6,4 @@ export const FETCH_NOTES = 'FETCH_NOTES';
 export const SHOW_LOADER = 'SHOW_LOADER';
 export const TOGGLE_DONE = 'TOGGLE_DONE';
 export const SEARCH_NOTE = 'SEARCH_NOTE';
+export const CHANGE_FILTER = 'CHANGE_FILTER';

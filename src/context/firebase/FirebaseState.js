@@ -1,15 +1,17 @@
 import React, { useReducer } from 'react';
 import { FirebaseContext } from "./firebaseContext";
 import { firebaseReducer } from "./firebaseReducer";
-import { ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SEARCH_NOTE, SHOW_LOADER, TOGGLE_DONE } from "../types";
+import { ADD_NOTE, CHANGE_FILTER, FETCH_NOTES, REMOVE_NOTE, SEARCH_NOTE, SHOW_LOADER, TOGGLE_DONE } from "../types";
 import FirebaseApiService from "../../services/firebaseApiService";
+import { FILTER_ALL, FILTER_DONE, FILTER_TODO } from "./filterTypes";
 
 export const FirebaseState = ({children}) => {
     const firebaseApiService = new FirebaseApiService();
     const initialState = {
         notes: [],
         loading: false,
-        search: ''
+        search: '',
+        filter: FILTER_ALL
     };
 
     const [state, dispatch] = useReducer(firebaseReducer, initialState);
@@ -113,22 +115,49 @@ export const FirebaseState = ({children}) => {
         });
     }
 
+    const changeFilter = (type) => {
+        dispatch({
+            type: CHANGE_FILTER,
+            payload: type
+        });
+    }
+
     const getFilteredNotes = () => {
         let notes = state.notes;
 
         if (state.search !== '') {
-            notes = notes.filter(note => note.note.indexOf(state.search) > -1);
+            notes = searchNotes(notes);
+        }
+
+        if (state.filter !== FILTER_ALL) {
+            notes = filterNotes(notes);
         }
 
         return notes;
     }
 
+    const searchNotes = (notes) => {
+        return notes.filter(note => note.note.indexOf(state.search) > -1);
+    }
+
+    const filterNotes = (notes) => {
+        switch (state.filter) {
+            case FILTER_TODO:
+                return notes.filter(note => !note.done);
+            case FILTER_DONE:
+                return notes.filter(note => note.done);
+            default:
+                return notes;
+        }
+    }
+
     return (
         <FirebaseContext.Provider value={ {
-            addNote, fetchNotes, removeNote, toggleDone, findNote,
+            addNote, fetchNotes, removeNote, toggleDone, findNote, changeFilter,
             notes: getFilteredNotes(),
             loading: state.loading,
             search: state.search,
+            filter: state.filter
         } }>
             { children }
         </FirebaseContext.Provider>
