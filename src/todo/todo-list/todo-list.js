@@ -7,19 +7,21 @@ import './index.scss';
 const TodoList = ({todos}) => {
     const list = todos.length > 0 ? todos.map((item) => {
         return <CSSTransition
+            in={ true }
             key={ item.id }
             timeout={ 800 }
             classNames="note"
         >
             <TodoItem todo={ item }/>
         </CSSTransition>
-    }) : <p>Notes list is empty!</p>;
+    }) : null;
 
     return (
         <div>
-            <TransitionGroup component="ul" className="list-group">
-                { list }
-            </TransitionGroup>
+            { list ?
+                <TransitionGroup component="ul" className="list-group">
+                    { list }
+                </TransitionGroup> : <p>Notes list is empty!</p> }
         </div>
     );
 };
