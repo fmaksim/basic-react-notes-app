@@ -41,6 +41,6 @@ TodoItem.propTypes = {
 
 TodoItem.defaultProps = {
     note: {}
-}
+};
 
 export default TodoItem;
