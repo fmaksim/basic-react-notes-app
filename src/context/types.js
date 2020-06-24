@@ -5,3 +5,4 @@ export const REMOVE_NOTE = 'REMOVE_NOTE';
 export const FETCH_NOTES = 'FETCH_NOTES';
 export const SHOW_LOADER = 'SHOW_LOADER';
 export const TOGGLE_DONE = 'TOGGLE_DONE';
+export const SEARCH_NOTE = 'SEARCH_NOTE';

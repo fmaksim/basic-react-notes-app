@@ -1,14 +1,15 @@
 import React, { useReducer } from 'react';
 import { FirebaseContext } from "./firebaseContext";
 import { firebaseReducer } from "./firebaseReducer";
-import { ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SHOW_LOADER, TOGGLE_DONE } from "../types";
+import { ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SEARCH_NOTE, SHOW_LOADER, TOGGLE_DONE } from "../types";
 import FirebaseApiService from "../../services/firebaseApiService";
 
 export const FirebaseState = ({children}) => {
     const firebaseApiService = new FirebaseApiService();
     const initialState = {
         notes: [],
-        loading: false
+        loading: false,
+        search: ''
     };
 
     const [state, dispatch] = useReducer(firebaseReducer, initialState);
@@ -105,11 +106,29 @@ export const FirebaseState = ({children}) => {
             .catch(onFailServerRequest)
     }
 
+    const findNote = (string) => {
+        dispatch({
+            type: SEARCH_NOTE,
+            payload: string
+        });
+    }
+
+    const getFilteredNotes = () => {
+        let notes = state.notes;
+
+        if (state.search !== '') {
+            notes = notes.filter(note => note.note.indexOf(state.search) > -1);
+        }
+
+        return notes;
+    }
+
     return (
         <FirebaseContext.Provider value={ {
-            addNote, fetchNotes, removeNote, toggleDone,
-            notes: state.notes,
+            addNote, fetchNotes, removeNote, toggleDone, findNote,
+            notes: getFilteredNotes(),
             loading: state.loading,
+            search: state.search,
         } }>
             { children }
         </FirebaseContext.Provider>

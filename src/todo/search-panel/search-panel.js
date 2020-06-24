@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './search-panel.scss';
+import { FirebaseContext } from "../../context/firebase/firebaseContext";
 
 const SearchPanel = () => {
+    const {findNote} = useContext(FirebaseContext);
+
     return (
         <div className="search-panel">
-            <form onSubmit={ () => {
-            } }>
-                <div className="form-group">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Type to search note..."/>
-                </div>
-            </form>
+            <div className="form-group">
+                <input
+                    type="text"
+                    className="form-control"
+                    onChange={(e) => findNote(e.target.value)}
+                    placeholder="Type to search note..."/>
+            </div>
         </div>
     );
 };

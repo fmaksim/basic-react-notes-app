@@ -1,4 +1,4 @@
-import { ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SHOW_LOADER, TOGGLE_DONE } from "../types";
+import { ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SEARCH_NOTE, SHOW_LOADER, TOGGLE_DONE } from "../types";
 
 const handlers = {
     DEFAULT: state => state,
@@ -14,6 +14,10 @@ const handlers = {
         ...state,
         notes: payload,
         loading: false,
+    }),
+    [SEARCH_NOTE]: (state, {payload}) => ({
+        ...state,
+        search: payload
     }),
     [SHOW_LOADER]: (state) => ({...state, loading: true}),
     [TOGGLE_DONE] : (state, {payload}) => {
