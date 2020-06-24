@@ -35,7 +35,7 @@ const AddForm = () => {
                         className="form-control"
                         placeholder="Enter note title"
                         value={noteTitle}
-                        onChange={(e) => setNoteTitle(e.target.value.trim())} />
+                        onChange={(e) => setNoteTitle(e.target.value)} />
                 </div>
                 <div className="form-group form-group-btn col-md-2">
                     <button
